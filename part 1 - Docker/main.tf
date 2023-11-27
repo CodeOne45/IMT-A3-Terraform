@@ -138,9 +138,16 @@ resource "docker_container" "db" {
   }
 }
 
+resource "docker_image" "seed" {
+  name       = "example-voting-app-seed"
+  build {
+    context = "../example-voting-app/seed/"
+  }
+}
+
 resource "docker_container" "seed" {
   name     = "seed"
-  image    = "example-voting-app-seed:latest"
+  image    = docker_image.seed.image_id
 
   networks_advanced {
     name = "front-tier"
