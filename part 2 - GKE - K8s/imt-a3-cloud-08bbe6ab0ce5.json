@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "imt-a3-cloud",
+  "private_key_id": "08bbe6ab0ce57ecbd2ed62d037de78e1fef368ce",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCRN9kYkFHxLLKR\nPYIS5abGyq0W0gmaWOkH6cysIzcPXtXy+GP17khr/ebV+DGTpW/v0GeR83CrTu7e\nmXQ5mofrP2OumQ5bEltcGXGfle/j8u33dWj0XDZBtOHoqkqUVRzN4JrsfGfZcnHH\nbYIYqnxrCYfkmBJBNupUZxDUUnZLFr+2UVNCXAS9etudmMJX6Dl4phc4S2dL0UlG\nEgHOrCaJdcVyCSO5TB9gIgyKRQU28ARyjB4QGYTTroVRJ0hhQ3QwfzR7JUKwLXUg\nPYnHs1hSStxxwU6jbvcchepZoGYLq+861izWYnbSHi13rB8xMR5XRGWak+9pI6Lr\nNI5wO0zrAgMBAAECggEABDlUreYJ/fpODHMUI50dJaZIPjfNQmW4gdHrBVbuk7gR\nu03vw1R9IGfxWpk/qDm7aUo3X8YVZJ92Qck49x2qJ5dQxoewpI3lGWc01IdPiM74\nyY2Im/Ujw1Y0T4ifSWpnmAsi3xkWz3Ev8fnMHa2h+fvUt5PSzQf2xfC4I94eVDKw\ndye7gZ52aPXq/+zH0+Eq2hkRaXm+YpSV82wRzmT7Exdp9kZvTOuPgXR/gVDAuE5+\ny+IkYlXkVF8pOzbSUd5upqECZ6w65OYttBmO8Yj2/HQGocWSDYcQ3V5qfP29kAgF\nnwgh9d38u8ihTKTp0XmdxkLzwwS3odx756+KMQVgIQKBgQDLelnWIi8BDE53xauL\nyxXl58az7Go5/XeZkA0J9q3JQyw3/gIIbEjiMJnWZR8ZkwecHFT82RUwp/3aEDaN\npZ6aYFPp64KCo1xv7D4bp0xVIARbOkWlHy5G9fOtvMw116QWH8aIoS9+rcavcsDn\nB3fqgo088YUDJNGitpZHmZ3FYQKBgQC2s72SLEWI3W5IK0e8BY628EnpluXcHOst\n2RE8VUwvwov1ctvamd+G3pgBtoR2stekpqUXOS4g+CdQX84o4+dESh9YSpiGSVJQ\n3wmNnxRbZaV0WLbXlOjqcBCElKhqtAw2eVUKlg1088bYxSWwTb+v9zluUkq3DNi3\n7XSFzwtpywKBgE0F+4u7VN+osOtVwCIith9ZJTZmf6+D6woOJWFoJ1DQRKTNWiem\nFdDJZPJrROKBbZgCgYlVA1hvvwAUsxHbZ7Y4UItzwuuAuzUC0F/XbGWswPlnjYV7\n0CC8aYmSthqLjmlxjc2adkgVr+gqICtUAGidEqnHIvqVrWVSiICB/d8BAoGAMNYO\nwDnRRGpcBjJ7dEjQAxprx2Ksgo/AVXsGXmg2ezW3j55qIh6rXzO00hBljAz2E27w\nBiskp29totBZHRj+QoTFqCYYaxzCQhe8R/zTxjJ/bYAhL7MAJ1pZL/dEpXEHKrB4\nCOJfKnnXFy5riprduD2PPmwEyLVIYLG6SeI0HM0CgYBugzeaiOv7kiCf88tpz8XZ\nGqC4FbfjJuNGWyapHx/0QLN5lbb2jXxDQCwUNukhACtM0e2f/q9GuE0+wnyDs0N3\nRE2fr8muxKjf+oghBqomBZeVV6cxPhx6sHnCZ7W+g6b/zKtOyGJ/FLa6v1KNrNFa\nimf2DwigT5mkDTW8c40ysA==\n-----END PRIVATE KEY-----\n",
+  "client_email": "teraform-kumar@imt-a3-cloud.iam.gserviceaccount.com",
+  "client_id": "106108484669663414559",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/teraform-kumar%40imt-a3-cloud.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
