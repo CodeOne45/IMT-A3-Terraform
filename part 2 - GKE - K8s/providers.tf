@@ -46,6 +46,7 @@ provider "kubernetes" {
   )
 }
 
+
 /*provider "docker" {
   registry_auth {
     address  = "europe-west9-docker.pkg.dev"
