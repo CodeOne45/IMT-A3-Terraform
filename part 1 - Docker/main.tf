@@ -7,146 +7,116 @@ terraform {
   }
 }
 
-
-
-# Networks
-resource "docker_network" "front-tier" {
-  name = "front-tier"
-}
-resource "docker_network" "back-tier" {
-  name = "back-tier"
-}
-
-
-
-#
-# Vote
-#
-resource "docker_image" "image_vote" {
-  name = "image_vote"
+resource "docker_image" "vote" {
+  name         = "example-voting-app"
   build {
     context = "../example-voting-app/vote/"
   }
 }
+
 resource "docker_container" "vote" {
   name  = "vote"
-  image = docker_image.image_vote.image_id
+  image = docker_image.vote.image_id
+
+
   ports {
-    internal = "80"
-    external = "5000"
+    internal = 80
+    external = 5002
   }
-  
-  depends_on = [docker_container.redis_db]
+
+  volumes {
+    container_path = "../example-voting-app/vote:/usr/local/app"
+  }
 
   networks_advanced {
-    name = docker_network.front-tier.name
+    name = "front-tier"
   }
+
   networks_advanced {
-    name = docker_network.back-tier.name
+    name = "back-tier"
   }
+
+  depends_on = [docker_container.redis]
 }
 
-
-
-#
-# Results
-#
-resource "docker_image" "image_result" {
-  name = "image_result"
+resource "docker_image" "result" {
+  name       = "example-voting-app-result"
   build {
     context = "../example-voting-app/result/"
   }
 }
+
 resource "docker_container" "result" {
   name  = "result"
-  image = docker_image.image_result.image_id
+  image = docker_image.result.image_id
 
   ports {
-    internal = "80"
-    external = "5001"
+    internal = 80
+    external = 5003
   }
-  
-  depends_on = [docker_container.postgres_db]
 
-  entrypoint = ["nodemon",  "--inspect=0.0.0.0", "server.js"]
+  volumes {
+    container_path = "../example-voting-app/result:/usr/local/app"
+  }
 
   networks_advanced {
-    name = docker_network.front-tier.name
+    name = "front-tier"
   }
+
   networks_advanced {
-    name = docker_network.back-tier.name
+    name = "back-tier"
   }
+
+  depends_on = [docker_container.db]
 }
 
-
-
-#
-# Worker
-#
-resource "docker_image" "image_worker" {
-  name = "image_worker"
+resource "docker_image" "worker" {
+  name         = "example-voting-app-worker"
   build {
     context = "../example-voting-app/worker/"
   }
 }
+
 resource "docker_container" "worker" {
   name  = "worker"
-  image = docker_image.image_worker.image_id
-
-  depends_on = [
-    docker_container.redis_db,
-    docker_container.postgres_db
-  ]
+  image = docker_image.worker.image_id
 
   networks_advanced {
-    name = docker_network.front-tier.name
+    name = "back-tier"
   }
-  networks_advanced {
-    name = docker_network.back-tier.name
-  }
+
+  depends_on = [docker_container.redis, docker_container.db]
 }
 
-
-
-#
-#  Redis
-#
 resource "docker_image" "redis" {
-  name = "redis:alpine"
+  name = "docker.io/redis:6.0.5"
+
 }
-resource "docker_container" "redis_db" {
+resource "docker_container" "redis" {
   name  = "redis"
-  image = docker_image.redis.image_id
+  image = docker_image.redis.name
+
+  volumes {
+    container_path = "../example-voting-app/healthchecks:/healthchecks"
+  }
 
   healthcheck {
-    test = ["../example-voting-app/healthchecks/redis.sh"]
-    interval = "5s"
+    test        = ["/bin/sh", "-c", "test -f /healthchecks/redis.sh"]
+    interval    = "5s"
+    start_period = "10s"
   }
 
   networks_advanced {
-    name = docker_network.front-tier.name
-  }
-  networks_advanced {
-    name = docker_network.back-tier.name
+    name = "back-tier"
   }
 }
 
-
-
-#
-#  Postgres
-#
 resource "docker_image" "postgres" {
   name = "postgres:15-alpine"
 }
-resource "docker_container" "postgres_db" {
+resource "docker_container" "db" {
   name  = "db"
-  image = docker_image.postgres.image_id
-
-  healthcheck {
-    test = ["../example-voting-app/healthchecks/postgres.sh"]
-    interval = "5s"
-  }
+  image = docker_image.postgres.name
 
   env = [
     "POSTGRES_USER=postgres",
@@ -154,22 +124,39 @@ resource "docker_container" "postgres_db" {
   ]
 
   volumes {
-    container_path="../example-voting-app/db-data:/var/lib/postgresql/data"
+    container_path = "db-data:/var/lib/postgresql/data"
+  }
+
+  healthcheck {
+    test        = ["/bin/sh", "-c", "test -f /healthchecks/postgres.sh"]
+    interval    = "5s"
+    start_period = "10s"
   }
 
   networks_advanced {
-    name = docker_network.back-tier.name
+    name = "back-tier"
   }
 }
 
+resource "docker_container" "seed" {
+  name     = "seed"
+  image    = "example-voting-app-seed:latest"
 
-# Outputs
-output "vote_endpoint" {
-  value = "http://localhost:${docker_container.vote.ports[0].external}"
-  description = "The URL endpoint to access the vote application"
+  networks_advanced {
+    name = "front-tier"
+  }
+
+  depends_on = [docker_container.vote]
 }
 
-output "result_endpoint" {
-  value = "http://localhost:${docker_container.result.ports[0].external}"
-  description = "The URL endpoint to access the results application"
+resource "docker_network" "front_tier" {
+  name = "front-tier"
+}
+
+resource "docker_network" "back_tier" {
+  name = "back-tier"
+}
+
+resource "docker_volume" "db_data" {
+  name = "db-data"
 }
