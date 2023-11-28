@@ -1,6 +1,4 @@
 resource "kubernetes_deployment_v1" "worker" {
-  provider = kubernetes.gke
-
   metadata {
     name = "worker"
     labels = {

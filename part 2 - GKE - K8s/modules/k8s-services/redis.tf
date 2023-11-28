@@ -1,6 +1,4 @@
 resource "kubernetes_service_v1" "redis" {
-  provider = kubernetes.gke
-
   metadata {
     name = "redis"
     labels = {
