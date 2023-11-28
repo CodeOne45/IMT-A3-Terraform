@@ -1,5 +1,4 @@
 resource "kubernetes_deployment_v1" "vote" {
-  provider = kubernetes.gke
 
   metadata {
     name = "vote"

@@ -1,5 +1,4 @@
 resource "kubernetes_service_v1" "db" {
-  provider = kubernetes.gke
 
   metadata {
     name = "db"

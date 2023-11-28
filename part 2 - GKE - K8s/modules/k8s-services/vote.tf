@@ -1,6 +1,4 @@
 resource "kubernetes_service_v1" "vote" {
-  provider = kubernetes.gke
-
   metadata {
     name = "vote"
     labels = {
