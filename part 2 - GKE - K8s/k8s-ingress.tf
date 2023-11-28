@@ -13,3 +13,4 @@ module "ingress-result"{
   service_name = "result"
   service_port = 5001
 }
+
