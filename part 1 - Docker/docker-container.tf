@@ -13,6 +13,12 @@ resource "docker_container" "vote" {
     container_path = "../example-voting-app/vote:/usr/local/app"
   }
 
+  healthcheck {
+    test        = ["CMD", "curl", "-f", "http://localhost:80"]
+    interval    = "5s"
+    start_period = "10s"
+  }
+
   networks_advanced {
     name = "front-tier"
   }
@@ -22,6 +28,7 @@ resource "docker_container" "vote" {
   }
 
   depends_on = [docker_container.redis]
+  restart = "always"
 }
 
 
@@ -48,6 +55,7 @@ resource "docker_container" "result" {
   }
 
   depends_on = [docker_container.db]
+  restart = "always"
 }
 
 
@@ -61,6 +69,7 @@ resource "docker_container" "worker" {
   }
 
   depends_on = [docker_container.redis, docker_container.db]
+  restart = "always"
 }
 
 
@@ -81,6 +90,7 @@ resource "docker_container" "redis" {
   networks_advanced {
     name = "back-tier"
   }
+  restart = "always"
 }
 
 
@@ -94,20 +104,18 @@ resource "docker_container" "db" {
   ]
 
   volumes {
-    container_path = "db-data:/var/lib/postgresql/data"
+    container_path = "../exemple-voting-app/db-data:/var/lib/postgresql/data"
   }
 
   healthcheck {
-    test        = ["/bin/sh", "-c", "test -f /healthchecks/postgres.sh"]
+    test = ["../exemple-voting-app/healthchecks/postgres.sh"]
     interval    = "5s"
-    start_period = "10s"
   }
-
+  restart = "always"
   networks_advanced {
     name = "back-tier"
   }
 }
-
 
 
 resource "docker_container" "seed" {
@@ -119,6 +127,8 @@ resource "docker_container" "seed" {
   }
 
   depends_on = [docker_container.vote]
+  restart = "no"
+
 }
 
 
