@@ -6,10 +6,6 @@ variable "label_app" {
   type = string
 }
 
-variable "label_tier" {
-  type = string
-}
-
 variable "container_name" {
   type = string
 }
@@ -59,6 +55,7 @@ resource "kubernetes_deployment_v1" "deplt" {
           }
           port {
             container_port = var.container_port
+            name = var.metadata_name
           }
         }
       }
