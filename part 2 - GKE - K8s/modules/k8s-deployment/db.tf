@@ -11,14 +11,14 @@ resource "kubernetes_deployment_v1" "db" {
 
     selector {
       match_labels = {
-        app = "db"
+        App = "db"
       }
     }
 
     template {
       metadata {
         labels = {
-          app = "db"
+          App = "db"
         }
       }
 
