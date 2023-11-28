@@ -11,24 +11,20 @@ variable "zone" {
 }
 
 
-terraform {
-  required_providers {
-    google = {
-      source = "hashicorp/google"
-      version = "5.6.0"
-    }
-    kubernetes = {
-        source = "hashicorp/kubernetes"
-        version = ">= 2.23.0"
-    }
-  }
+
+
+variable "GOOGLE_CREDENTIALS_File" {
+  type = any
 }
+
+# example of GOOGLE_CREDENTIALS
+
 
 provider "google" {
   project = var.project_id
   region  = var.region
   zone    = var.zone
-  credentials = var.GOOGLE_CREDENTIALS
+  credentials = var.GOOGLE_CREDENTIALS_File
 }
 
 data "google_client_config" "default" {}
