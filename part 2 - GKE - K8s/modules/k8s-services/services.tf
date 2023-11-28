@@ -33,7 +33,7 @@ resource "kubernetes_service_v1" "service" {
   metadata {
     name = var.metadata_name
     labels = {
-      app = var.label_app
+      App = var.label_app
     }
   }
 
@@ -47,7 +47,7 @@ resource "kubernetes_service_v1" "service" {
     }
 
     selector = {
-      app = var.label_app
+      App = var.label_app
     }
   }
 }
