@@ -28,7 +28,7 @@ provider "google" {
   project = var.project_id
   region  = var.region
   zone    = var.zone
-  credentials = file("imt-a3-cloud-08bbe6ab0ce5.json")
+  credentials = var.GOOGLE_CREDENTIALS
 }
 
 data "google_client_config" "default" {}
