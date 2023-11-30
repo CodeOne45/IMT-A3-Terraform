@@ -40,6 +40,8 @@ If everything goes well, you should see in GCP ingress service with external IP 
 
 This respository also use Giithub Actions to automate the terraform workflow to deploy the application on GKE. The workflow is triggered when a new release is created. The workflow is defined in .github/workflows/terraform.yml file.
 
+However, once the workflow is triggered, it will create resources on GCP and deploy the application on GKE. But, it will not destroy the resources once the workflow is completed. To destroy the resources, you need to do it manually in GCP.
+
 ## Contributors
 - Aman Kumar
 - Pierre LAFON
