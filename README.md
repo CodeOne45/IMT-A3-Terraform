@@ -1,16 +1,47 @@
-# IMT-A3-Terraform
+# IMT-A3-Terraform (Aman KUMAR & Pierre LAFON)
 
-## Première partie - Docker
-Dans cette première partie, vous allez déployer l’application avec le provider Docker de Terraform. L’application sera donc déployée dans des conteneurs en local sur votre machine.
-
-TIP
-partez du fichier docker-compose.yml du git et du tutoriel
+## Objective
+The goal of this project is to provide hands-on experience with Terraform for deploying an application composed of 5 services available on GitHub: [Example Voting App](https://github.com/dockersamples/example-voting-app/tree/main).
 
 
-## Deuxième partie - GKE et Kubernetes
-Dans cette deuxième partie, vous allez déployer l’application sur un cluster Kubernetes réservé avec Terraform sur GKE. Il faudra donc utiliser les providers Google GCP et Kubernetes.
+## Part 1 - Docker
+In this initial phase, the application is deployed using Terraform's Docker provider. It's deployed in containers locally on host machine.
 
-TIP
-vous pouvez repartir des tutoriels GCP/GKE et Kubernetes et utiliser les manifest Kubernetes présents dans le git
-IMPORTANT
-Organiser bien votre code Terraform ! La qualité de l’organisation sera notée (Modules, répertoires, fichiers)
+### To run the docker terraform files,
+
+```bash
+cd part 1 - docker
+terraform init
+terraform plan
+terraform apply
+```
+
+## Part 2 - GKE and Kubernetes
+In the second part, the objective is to deploy the application on a Kubernetes cluster provisioned with Terraform on Google Kubernetes Engine (GKE). This involves using the Google Cloud Platform (GCP) and Kubernetes providers.
+
+### To run the GKE terraform files,
+
+```bash
+cd part 2 - GKE - K8s
+terraform init
+terraform plan
+terraform apply
+```
+
+### Variables to be set in terraform.tfvars file  (Google Cloud Platform variables)
+- project_id
+- region
+- zone
+- GOOGLE_CREDENTIALS_File : string of json Google credentials (it should be a string of json, you can concert JSON to string using [this](https://codebeautify.org/json-to-string-online) website)
+
+If everything goes well, you should see in GCP ingress service with external IP address. You can access the application using that IP address.
+
+## Additional features
+
+This respository also use Giithub Actions to automate the terraform workflow to deploy the application on GKE. The workflow is triggered when a new release is created. The workflow is defined in .github/workflows/terraform.yml file.
+
+## Contributors
+- Aman Kumar
+- Pierre LAFON
+
+Happy Terraforming!
