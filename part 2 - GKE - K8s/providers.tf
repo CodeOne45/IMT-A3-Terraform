@@ -38,16 +38,3 @@ provider "kubernetes" {
   )
 }
 
-
-/*provider "docker" {
-  registry_auth {
-    address  = "europe-west9-docker.pkg.dev"
-    username = "oauth2accesstoken"
-    password = data.google_service_account_access_token.sa.access_token
-  }
-}
-
-data "google_service_account_access_token" "sa" {
-  target_service_account = "202152396484-compute@developer.gserviceaccount.com"
-  scopes                 = [ "cloud-platform" ]
-}*/
